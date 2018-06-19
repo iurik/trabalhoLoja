@@ -10,22 +10,42 @@ package model;
  * @author iuri
  */
 public class VendaProduto {
-    private int codigo;
-    private String nome;
+    private int quantidade;
+    private float valorUnitario;
+    private int cod_produto;
+    private int cod_venda;
 
-    public int getCodigo() {
-        return codigo;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public String getNome() {
-        return nome;
+    public float getValorUnitario() {
+        return valorUnitario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setValorUnitario(float valorUnitario) {
+        this.valorUnitario = valorUnitario;
     }
+
+    public int getCod_produto() {
+        return cod_produto;
+    }
+
+    public void setCod_produto(int cod_produto) {
+        this.cod_produto = cod_produto;
+    }
+
+    public int getCod_venda() {
+        return cod_venda;
+    }
+
+    public void setCod_venda(int cod_venda) {
+        this.cod_venda = cod_venda;
+    }
+    
+    
 }

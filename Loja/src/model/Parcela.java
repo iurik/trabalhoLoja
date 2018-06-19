@@ -5,13 +5,18 @@
  */
 package model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author iuri
  */
 public class Parcela {
     private int codigo;
-    private String nome;
+    private float valor;
+    private LocalDate dataVencimento;
+    private LocalDate dataPagamento;
+    private int cod_venda;
 
     public int getCodigo() {
         return codigo;
@@ -21,11 +26,37 @@ public class Parcela {
         this.codigo = codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public float getValor() {
+        return valor;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setValor(float valor) {
+        this.valor = valor;
     }
+
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
+    }
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public int getCod_venda() {
+        return cod_venda;
+    }
+
+    public void setCod_venda(int cod_venda) {
+        this.cod_venda = cod_venda;
+    }
+    
+    
 }

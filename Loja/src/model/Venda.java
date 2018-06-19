@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author iuri
@@ -12,5 +14,40 @@ package model;
 public class Venda {
     private int codigo;
     private float valorTotal;
-    private 
+    private LocalDateTime datahora; 
+    private int cod_cliente;
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public LocalDateTime getDatahora() {
+        return datahora;
+    }
+
+    public void setDatahora(LocalDateTime datahora) {
+        this.datahora = datahora;
+    }
+
+    public int getCod_cliente() {
+        return cod_cliente;
+    }
+
+    public void setCod_cliente(int cod_cliente) {
+        this.cod_cliente = cod_cliente;
+    }
+    
+    
 }
