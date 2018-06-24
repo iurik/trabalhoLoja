@@ -11,23 +11,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import model.Pessoa;
+import model.Tipo;
 import config.Conexao;
 
 /**
  *
  * @author iuri
  */
-public class PessoaDAO {
+public class TipoDAO {
 
-    public boolean adicionar(Pessoa pessoa) { //alterar a classe do parâmetro
+    public boolean adicionar(Tipo tipo) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO pessoa (nome, telefone) VALUES (?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO tipo (descricao) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, pessoa.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-            pstmt.setString(1, pessoa.getTelefone());    
+            pstmt.setString(1, tipo.getDescricao()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,18 +36,17 @@ public class PessoaDAO {
         return false;
     }
 
-    public boolean alterar(Pessoa pessoa) {
+    public boolean alterar(Tipo tipo) {
         try {
-            String sql = " UPDATE pessoa "
-                    + "    SET nome = ?, telefone = ? "
+            String sql = " UPDATE tipo "
+                    + "    SET descricao = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, pessoa.getNome());
-            pstmt.setString(1, pessoa.getTelefone());
-            pstmt.setInt(2, pessoa.getCodigo());
+            pstmt.setString(1, tipo.getDescricao());
+            pstmt.setInt(2, tipo.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -58,12 +57,12 @@ public class PessoaDAO {
         return false;
     }
 
-    public boolean excluir(Pessoa pessoa) {
+    public boolean excluir(Tipo tipo) {
         try {
-            String sql = " DELETE FROM pessoa WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM tipo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, pessoa.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, tipo.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -74,23 +73,22 @@ public class PessoaDAO {
         return false;
     }
 
-    public List<Pessoa> selecionar() {
-        String sql = "SELECT codigo, nome, telefone FROM pessoa ORDER BY nome"; //alterar tabela e atributos
+    public List<Tipo> selecionar() {
+        String sql = "SELECT codigo, descricao FROM tipo ORDER BY descricao"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Pessoa> lista = new ArrayList<>(); //alterar a classe
+            List<Tipo> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Pessoa pessoa = new Pessoa(); //alterar o nome da classe e o construtor
+                Tipo tipo = new Tipo(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                pessoa.setCodigo(rs.getInt("codigo")); //alterar
-                pessoa.setNome(rs.getString("nome"));  //alterar
-                pessoa.setNome(rs.getString("telefone"));
+                tipo.setCodigo(rs.getInt("codigo")); //alterar
+                tipo.setDescricao(rs.getString("descricao"));  //alterar
 
-                lista.add(pessoa);
+                lista.add(tipo);
             }
             stmt.close();
             return lista;
@@ -103,11 +101,10 @@ public class PessoaDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Pessoa pessoa = new Pessoa(); //alterar
-        pessoa.setNome("Iuri"); //alterar
-        pessoa.setTelefone("54991450891");
+        Tipo tipo = new Tipo(); //alterar
+        tipo.setDescricao("Calça"); //alterar
 
-        PessoaDAO dao = new PessoaDAO(); //alterar
-        dao.adicionar(pessoa); //alterar
+        TipoDAO dao = new TipoDAO(); //alterar
+        dao.adicionar(tipo); //alterar
     }
 }

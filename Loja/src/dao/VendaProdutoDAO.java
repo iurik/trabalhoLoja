@@ -16,9 +16,9 @@ import config.Conexao;
 
 /**
  *
- * @author edimar
+ * @author iuri
  */
-public class GrupoDAO {
+public class VendaProdutoDAO {
 
     public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
         try {
@@ -104,7 +104,7 @@ public class GrupoDAO {
         Grupo objeto = new Grupo(); //alterar
         objeto.setNome("Alimentícios"); //alterar
 
-        GrupoDAO dao = new GrupoDAO(); //alterar
+        VendaProdutoDAO dao = new VendaProdutoDAO(); //alterar
         dao.adicionar(objeto); //alterar
     }
 }
