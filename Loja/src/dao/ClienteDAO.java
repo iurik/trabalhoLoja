@@ -20,14 +20,15 @@ import config.Conexao;
  */
 public class ClienteDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Cliente cliente) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO cliente (cpf, cod_pessoa) VALUES (?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(1, cliente.getCpf()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setInt(2, cliente.getCod_pessoa());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +37,17 @@ public class ClienteDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Cliente cliente) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
-                    + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
+            String sql = " UPDATE cliente "
+                    + "    SET cpf = ? "
+                    + "  WHERE cod_pessoa = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setString(1, cliente.getCpf());
+            pstmt.setInt(2, cliente.getCod_pessoa());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +58,12 @@ public class ClienteDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Cliente cliente) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM cliente WHERE cod_pessoa = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, cliente.getCod_pessoa()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +74,22 @@ public class ClienteDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Cliente> selecionar() {
+        String sql = "SELECT cod_pessoa, cpf FROM cliente ORDER BY cod_pessoa"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Cliente> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Cliente cliente = new Cliente(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
+                cliente.setCod_pessoa(rs.getInt("cod_pessoa")); //alterar
+                cliente.setCpf(rs.getString("cpf"));  //alterar
 
-                lista.add(objeto);
+                lista.add(cliente);
             }
             stmt.close();
             return lista;
@@ -101,10 +102,11 @@ public class ClienteDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Cliente cliente = new Cliente(); //alterar
+        cliente.setCod_pessoa(1); //alterar
+        cliente.setCpf("03424827002");
+        
         ClienteDAO dao = new ClienteDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(cliente); //alterar
     }
 }

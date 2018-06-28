@@ -11,7 +11,7 @@ package model;
  */
 public class VendaProduto {
     private int quantidade;
-    private float valorUnitario;
+    private double valorUnitario;
     private int cod_produto;
     private int cod_venda;
 
@@ -23,11 +23,11 @@ public class VendaProduto {
         this.quantidade = quantidade;
     }
 
-    public float getValorUnitario() {
+    public double getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(float valorUnitario) {
+    public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 

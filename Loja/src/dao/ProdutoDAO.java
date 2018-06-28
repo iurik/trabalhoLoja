@@ -20,14 +20,21 @@ import config.Conexao;
  */
 public class ProdutoDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Produto produto) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO produto (prateleira, valorunitario, quantidadeestoque, descricao, custo, ncm, cod_tipo, cod_fornecedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(1, produto.getPrateleira()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setDouble(2, produto.getValorUnitario());
+            pstmt.setInt(3, produto.getQuantidadeEstoque());
+            pstmt.setString(4, produto.getDescricao());
+            pstmt.setDouble(5, produto.getCusto());
+            pstmt.setString(6, produto.getNcm());
+            pstmt.setInt(7, produto.getCod_tipo());
+            pstmt.setInt(8, produto.getCod_fornecedor());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +43,24 @@ public class ProdutoDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Produto produto) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
+            String sql = " UPDATE produto "
+                    + "    SET prateleira = ?, valorunitario = ?, quantidadeestoque = ?, descricao = ?, custo = ?, ncm = ?, cod_tipo = ?, cod_fornecedor = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setString(1, produto.getPrateleira());
+            pstmt.setDouble(2, produto.getValorUnitario());
+            pstmt.setInt(3, produto.getQuantidadeEstoque());
+            pstmt.setString(4, produto.getDescricao());
+            pstmt.setDouble(5, produto.getCusto());
+            pstmt.setString(6, produto.getNcm());
+            pstmt.setInt(7, produto.getCod_tipo());
+            pstmt.setInt(8, produto.getCod_fornecedor());
+            pstmt.setInt(9, produto.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +71,12 @@ public class ProdutoDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Produto produto) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM produto WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, produto.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +87,29 @@ public class ProdutoDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Produto> selecionar() {
+        String sql = "SELECT codigo, prateleira, valorunitario, quantidadeestoque, descricao, custo, ncm, cod_tipo, cod_fornecedor FROM produto ORDER BY descricao"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Produto> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Produto produto = new Produto(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
-
-                lista.add(objeto);
+                produto.setCodigo(rs.getInt("codigo")); //alterar
+                produto.setPrateleira(rs.getString("nome"));  //alterar
+                produto.setValorUnitario(rs.getDouble("valorunitario"));
+                produto.setQuantidadeEstoque(rs.getInt("quantidadeestoque"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setCusto(rs.getDouble("custo"));
+                produto.setNcm(rs.getString("ncm"));
+                produto.setCod_tipo(rs.getInt("cod_tipo"));
+                produto.setCod_fornecedor(rs.getInt("cod_fornecedor"));
+                
+                lista.add(produto);
             }
             stmt.close();
             return lista;
@@ -101,10 +122,18 @@ public class ProdutoDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
+        Produto produto = new Produto(); //alterar
+        produto.setPrateleira("preteleira 2"); //alterar
+        produto.setValorUnitario(69.00);
+        produto.setQuantidadeEstoque(9);
+        produto.setDescricao("Preto, G");
+        produto.setCusto(40.90);
+        produto.setNcm("95135764");
+        produto.setCod_tipo(1);
+        produto.setCod_fornecedor(1);
+        
 
         ProdutoDAO dao = new ProdutoDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(produto); //alterar
     }
 }

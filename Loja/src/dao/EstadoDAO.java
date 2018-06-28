@@ -20,14 +20,16 @@ import config.Conexao;
  */
 public class EstadoDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Estado estado) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO estado (nome, sigla, cod_pais) VALUES (?, ?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(1, estado.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setString(2, estado.getSigla());
+            pstmt.setInt(3, estado.getCod_pais());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +38,19 @@ public class EstadoDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Estado estado) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
+            String sql = " UPDATE estado "
+                    + "    SET nome = ?, sigla = ?, cod_pais = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setString(1, estado.getNome());
+            pstmt.setString(2, estado.getSigla());
+            pstmt.setInt(3, estado.getCod_pais());
+            pstmt.setInt(4, estado.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +61,12 @@ public class EstadoDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Estado estado) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM estado WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, estado.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +77,24 @@ public class EstadoDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Estado> selecionar() {
+        String sql = "SELECT codigo, nome, sigla, cod_pais FROM estado ORDER BY nome"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Estado> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Estado estado = new Estado(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
+                estado.setCodigo(rs.getInt("codigo")); //alterar
+                estado.setNome(rs.getString("nome"));
+                estado.setSigla(rs.getString("sigla"));
+                estado.setCod_pais(rs.getInt("cod_pais"));  //alterar
 
-                lista.add(objeto);
+                lista.add(estado);
             }
             stmt.close();
             return lista;
@@ -101,10 +107,12 @@ public class EstadoDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Estado estado = new Estado(); //alterar
+        estado.setNome("Rio Grande do Sul"); //alterar
+        estado.setSigla("RS");
+        estado.setCod_pais(1);
+        
         EstadoDAO dao = new EstadoDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(estado); //alterar
     }
 }

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,14 +21,15 @@ import config.Conexao;
  */
 public class VendaDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Venda venda) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO venda (valorTotal, datahora, cod_cliente) VALUES (?, ?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setDouble(1, venda.getValorTotal()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setDate(2, new Date (venda.getDatahora().getTime()));
+            pstmt.setInt(3, venda.getCod_cliente());
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +38,20 @@ public class VendaDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Venda venda) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
+            String sql = " UPDATE venda "
+                    + "    SET valortotal = ?, datahora = ?, cod_cliente = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setDouble(1, venda.getValorTotal());
+            pstmt.setDate(2, new Date (venda.getDatahora().getTime()));
+            //pstmt.setString(2, venda.getDatahora());
+            pstmt.setInt(3, venda.getCod_cliente());
+            pstmt.setInt(4, venda.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +62,12 @@ public class VendaDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Venda venda) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM venda WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, venda.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +78,24 @@ public class VendaDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Venda> selecionar() {
+        String sql = "SELECT codigo, valortotal, datahora, cod_cliente FROM venda ORDER BY codigo"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Venda> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Venda venda = new Venda(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
+                venda.setCodigo(rs.getInt("codigo")); //alterar
+                venda.setValorTotal(rs.getDouble("valortotal"));  //alterar
+                venda.setDatahora(rs.getDate("datahora"));
+                venda.setCod_cliente(rs.getInt("cod_cliente"));
 
-                lista.add(objeto);
+                lista.add(venda);
             }
             stmt.close();
             return lista;
@@ -101,10 +108,12 @@ public class VendaDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Venda venda = new Venda(); //alterar
+        venda.setValorTotal(850.00);
+        venda.setDatahora();
+        venda.setCod_cliente(1);
+                     
         VendaDAO dao = new VendaDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(venda); //alterar
     }
 }

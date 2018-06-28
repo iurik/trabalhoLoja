@@ -20,14 +20,20 @@ import config.Conexao;
  */
 public class EnderecoDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Endereco endereco) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO endereco (numero, cep, bairro, complemento, logradouro, cod_cid, cod_pessoa) VALUES (?, ?, ?, ?, ?, ?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(1, endereco.getNumero()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setString(2, endereco.getCep());
+            pstmt.setString(3, endereco.getBairro());
+            pstmt.setString(4, endereco.getComplemento());
+            pstmt.setString(5, endereco.getLogradouro());
+            pstmt.setInt(6, endereco.getCod_cid());
+            pstmt.setInt(7, endereco.getCod_pessoa());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +42,23 @@ public class EnderecoDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Endereco endereco) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
+            String sql = " UPDATE endereco "
+                    + "    SET numero = ?, cep = ?, bairro = ?, complemento = ?, logradouro = ?, cod_cid = ?, cod_pessoa = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setString(1, endereco.getNumero());
+            pstmt.setString(2, endereco.getCep());
+            pstmt.setString(3, endereco.getBairro());
+            pstmt.setString(4, endereco.getComplemento());
+            pstmt.setString(5, endereco.getLogradouro());
+            pstmt.setInt(6, endereco.getCod_cid());
+            pstmt.setInt(7, endereco.getCod_pessoa());
+            pstmt.setInt(8, endereco.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +69,12 @@ public class EnderecoDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Endereco endereco) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM endereco WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, endereco.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +85,28 @@ public class EnderecoDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Endereco> selecionar() {
+        String sql = "SELECT codigo, numero, cep, bairro, complemento, logradouro, cod_cid, cod_pessoa FROM endereco ORDER BY cod_cid"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Endereco> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Endereco endereco = new Endereco(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
+                endereco.setCodigo(rs.getInt("codigo")); //alterar
+                endereco.setNumero(rs.getString("numero"));  //alterar
+                endereco.setCep(rs.getString("cep"));
+                endereco.setBairro(rs.getString("bairro"));
+                endereco.setComplemento(rs.getString("complemento"));
+                endereco.setLogradouro(rs.getString("logradouro"));
+                endereco.setCod_cid(rs.getInt("cod_cid"));
+                endereco.setCod_pessoa(rs.getInt("cod_pessoa"));
 
-                lista.add(objeto);
+                lista.add(endereco);
             }
             stmt.close();
             return lista;
@@ -101,10 +119,16 @@ public class EnderecoDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Endereco endereco = new Endereco(); //alterar
+        endereco.setNumero(null); //alterar
+        endereco.setCep("99450000");
+        endereco.setBairro("Linha Floresta");
+        endereco.setComplemento(null);
+        endereco.setLogradouro(null);
+        endereco.setCod_pessoa(1);
+        endereco.setCod_cid(1);
+        
         EnderecoDAO dao = new EnderecoDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(endereco); //alterar
     }
 }

@@ -12,10 +12,10 @@ package model;
 public class Produto {
     private int codigo;
     private String prateleira;
-    private float valorUnitario;
+    private double valorUnitario;
     private int quantidadeEstoque;
     private String descricao;
-    private float custo;
+    private double custo;
     private String ncm;
     private int cod_tipo;
     private int cod_fornecedor;
@@ -36,11 +36,11 @@ public class Produto {
         this.prateleira = prateleira;
     }
 
-    public float getValorUnitario() {
+    public double getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(float valorUnitario) {
+    public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
@@ -60,11 +60,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public float getCusto() {
+    public double getCusto() {
         return custo;
     }
 
-    public void setCusto(float custo) {
+    public void setCusto(double custo) {
         this.custo = custo;
     }
 

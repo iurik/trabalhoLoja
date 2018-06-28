@@ -20,14 +20,15 @@ import config.Conexao;
  */
 public class FornecedorDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Fornecedor fornecedor) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO fornecedor (cnpj, cod_pessoa) VALUES (?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(1, fornecedor.getCnpj()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setInt(2, fornecedor.getCod_pessoa());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +37,17 @@ public class FornecedorDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Fornecedor fornecedor) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
-                    + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
+            String sql = " UPDATE fornecedor"
+                    + "    SET cnpj = ? "
+                    + "  WHERE cod_pessoa = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setString(1, fornecedor.getCnpj());
+            pstmt.setInt(2, fornecedor.getCod_pessoa());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +58,12 @@ public class FornecedorDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Fornecedor fornecedor) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM fornecedor WHERE cod_pessoa = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, fornecedor.getCod_pessoa()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +74,22 @@ public class FornecedorDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Fornecedor> selecionar() {
+        String sql = "SELECT cod_pessoa, cnpj FROM fornecedor ORDER BY cod_pessoa"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Fornecedor> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Fornecedor fornecedor = new Fornecedor(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
+                fornecedor.setCod_pessoa(rs.getInt("cod_pessoa")); //alterar
+                fornecedor.setCnpj(rs.getString("cnpj"));  //alterar
 
-                lista.add(objeto);
+                lista.add(fornecedor);
             }
             stmt.close();
             return lista;
@@ -101,10 +102,11 @@ public class FornecedorDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Fornecedor fornecedor = new Fornecedor(); //alterar
+        fornecedor.setCnpj("15965475398126"); //alterar
+        fornecedor.setCod_pessoa(1);
+        
         FornecedorDAO dao = new FornecedorDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(fornecedor); //alterar
     }
 }

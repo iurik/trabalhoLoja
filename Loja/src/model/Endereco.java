@@ -11,7 +11,7 @@ package model;
  */
 public class Endereco {
     private int codigo;
-    private int numero;
+    private String numero;
     private String cep;
     private String bairro;
     private String complemento;
@@ -27,11 +27,11 @@ public class Endereco {
         this.codigo = codigo;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

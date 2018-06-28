@@ -20,14 +20,15 @@ import config.Conexao;
  */
 public class CidadeDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Cidade cidade) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO cidade (nome, cod_estado) VALUES (?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(1, cidade.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setInt(2, cidade.getCod_estado());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +37,18 @@ public class CidadeDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Cidade cidade) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
+            String sql = " UPDATE cidade "
+                    + "    SET nome = ?, cod_estado = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setString(1, cidade.getNome());
+            pstmt.setInt(2, cidade.getCod_estado());
+            pstmt.setInt(3, cidade.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +59,12 @@ public class CidadeDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Cidade cidade) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM cidade WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, cidade.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +75,23 @@ public class CidadeDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Cidade> selecionar() {
+        String sql = "SELECT codigo, nome, cod_estado FROM cidade ORDER BY nome"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Cidade> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Cidade cidade = new Cidade(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
+                cidade.setCodigo(rs.getInt("codigo")); //alterar
+                cidade.setNome(rs.getString("nome"));  //alterar
+                cidade.setCod_estado(rs.getInt("cod_estado"));
 
-                lista.add(objeto);
+                lista.add(cidade);
             }
             stmt.close();
             return lista;
@@ -101,10 +104,11 @@ public class CidadeDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Cidade cidade = new Cidade(); //alterar
+        cidade.setNome("Selbach"); //alterar
+        cidade.setCod_estado(1);
+        
         CidadeDAO dao = new CidadeDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(cidade); //alterar
     }
 }

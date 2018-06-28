@@ -27,7 +27,7 @@ public class PessoaDAO {
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
             pstmt.setString(1, pessoa.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-            pstmt.setString(1, pessoa.getTelefone());    
+            pstmt.setString(2, pessoa.getTelefone());    
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {

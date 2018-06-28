@@ -5,7 +5,13 @@
  */
 package model;
 
-import java.time.LocalDateTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 /**
  *
@@ -13,8 +19,8 @@ import java.time.LocalDateTime;
  */
 public class Venda {
     private int codigo;
-    private float valorTotal;
-    private LocalDateTime datahora; 
+    private double valorTotal;
+    private Date datahora; 
     private int cod_cliente;
 
     public int getCodigo() {
@@ -25,20 +31,29 @@ public class Venda {
         this.codigo = codigo;
     }
 
-    public float getValorTotal() {
+    public double getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(float valorTotal) {
+    public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public LocalDateTime getDatahora() {
+    public Date getDatahora() {
         return datahora;
     }
 
-    public void setDatahora(LocalDateTime datahora) {
+    public void setDatahora(Date datahora) {
         this.datahora = datahora;
+    }
+    
+    public void setDatahora(String datahora) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        try{
+            setDatahora(format.parse(datahora));
+        } catch (ParseException ex){
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getCod_cliente() {
