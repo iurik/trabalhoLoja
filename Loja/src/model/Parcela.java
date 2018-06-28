@@ -5,7 +5,11 @@
  */
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -45,7 +49,12 @@ public class Parcela {
     }
     
     public void setDataVencimento(String dataVencimento){
-        
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            setDataVencimento(format.parse(dataVencimento));
+        } catch (ParseException ex){
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Date getDataPagamento() {
@@ -57,7 +66,12 @@ public class Parcela {
     }
     
     public void setDataPagamento(String dataPagamento){
-        
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            setDataPagamento(format.parse(dataPagamento));
+        } catch (ParseException ex){
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getCod_venda() {

@@ -48,7 +48,7 @@ public class Venda {
     }
     
     public void setDatahora(String datahora) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try{
             setDatahora(format.parse(datahora));
         } catch (ParseException ex){

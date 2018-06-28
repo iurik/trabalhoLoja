@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Parcela;
 import config.Conexao;
+import java.sql.Date;
 
 /**
  *
@@ -20,14 +21,16 @@ import config.Conexao;
  */
 public class ParcelaDAO {
 
-    public boolean adicionar(Grupo objeto) { //alterar a classe do parâmetro
+    public boolean adicionar(Parcela parcela) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO grupo (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO parcela (valor, datavencimento, datapagamento, cod_venda) VALUES (?, ?, ?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setDouble(1, parcela.getValor()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
+            pstmt.setDate(2, new Date(parcela.getDataVencimento().getTime()));
+            pstmt.setDate(3, new Date(parcela.getDataPagamento().getTime()));
+            pstmt.setInt(4, parcela.getCod_venda());
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,17 +39,20 @@ public class ParcelaDAO {
         return false;
     }
 
-    public boolean alterar(Grupo objeto) {
+    public boolean alterar(Parcela parcela) {
         try {
-            String sql = " UPDATE grupo "
-                    + "    SET nome = ? "
+            String sql = " UPDATE parcela "
+                    + "    SET valor = ?,  datavencimento = ?, datapagamento = ?, cod_venda = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
-            pstmt.setString(1, objeto.getNome());
-            pstmt.setInt(2, objeto.getCodigo());
+            pstmt.setDouble(1, parcela.getValor()); 
+            pstmt.setDate(2, new Date(parcela.getDataVencimento().getTime()));
+            pstmt.setDate(3, new Date(parcela.getDataPagamento().getTime()));
+            pstmt.setInt(4, parcela.getCod_venda());
+            pstmt.setInt(5, parcela.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -57,12 +63,12 @@ public class ParcelaDAO {
         return false;
     }
 
-    public boolean excluir(Grupo objeto) {
+    public boolean excluir(Parcela parcela) {
         try {
-            String sql = " DELETE FROM grupo WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
+            String sql = " DELETE FROM parcela WHERE codigo = ? "; //alterar a tabela e a chave primária no WHERE
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
-            pstmt.setInt(1, objeto.getCodigo()); //alterar conforme a chave primária
+            pstmt.setInt(1, parcela.getCodigo()); //alterar conforme a chave primária
 
             pstmt.executeUpdate();
             return true;
@@ -73,22 +79,25 @@ public class ParcelaDAO {
         return false;
     }
 
-    public List<Grupo> selecionar() {
-        String sql = "SELECT codigo, nome FROM grupo ORDER BY nome"; //alterar tabela e atributos
+    public List<Parcela> selecionar() {
+        String sql = "SELECT codigo, valor, datavencimento, datapagamento, cod_venda FROM parcela ORDER BY datavencimento"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Grupo> lista = new ArrayList<>(); //alterar a classe
+            List<Parcela> lista = new ArrayList<>(); //alterar a classe
 
             while (rs.next()) {
-                Grupo objeto = new Grupo(); //alterar o nome da classe e o construtor
+                Parcela parcela = new Parcela(); //alterar o nome da classe e o construtor
 
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
-                objeto.setCodigo(rs.getInt("codigo")); //alterar
-                objeto.setNome(rs.getString("nome"));  //alterar
-
-                lista.add(objeto);
+                parcela.setCodigo(rs.getInt("codigo")); //alterar
+                parcela.setValor(rs.getDouble("valor"));  //alterar
+                parcela.setDataVencimento(rs.getDate("datavencimento"));
+                parcela.setDataPagamento(rs.getDate("datapagamento"));
+                parcela.setCod_venda(rs.getInt("cod_venda"));
+                
+                lista.add(parcela);
             }
             stmt.close();
             return lista;
@@ -101,10 +110,13 @@ public class ParcelaDAO {
 
     //método só para testar
     public static void main(String[] args) {
-        Grupo objeto = new Grupo(); //alterar
-        objeto.setNome("Alimentícios"); //alterar
-
+        Parcela parcela = new Parcela(); //alterar
+        parcela.setValor(36.0); //alterar
+        parcela.setDataVencimento("30/12/2018");
+        parcela.setDataPagamento("24/12/2018");
+        parcela.setCod_venda(1);
+        
         ParcelaDAO dao = new ParcelaDAO(); //alterar
-        dao.adicionar(objeto); //alterar
+        dao.adicionar(parcela); //alterar
     }
 }

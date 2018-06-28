@@ -28,7 +28,7 @@ public class VendaDAO {
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
             pstmt.setDouble(1, venda.getValorTotal()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-            pstmt.setDate(2, new Date (venda.getDatahora().getTime()));
+            pstmt.setDate(2, new Date (new java.util.Date().getTime()));
             pstmt.setInt(3, venda.getCod_cliente());
             pstmt.executeUpdate(); //executando
             return true;
@@ -41,17 +41,15 @@ public class VendaDAO {
     public boolean alterar(Venda venda) {
         try {
             String sql = " UPDATE venda "
-                    + "    SET valortotal = ?, datahora = ?, cod_cliente = ? "
+                    + "    SET valortotal = ?, cod_cliente = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
             pstmt.setDouble(1, venda.getValorTotal());
-            pstmt.setDate(2, new Date (venda.getDatahora().getTime()));
-            //pstmt.setString(2, venda.getDatahora());
-            pstmt.setInt(3, venda.getCod_cliente());
-            pstmt.setInt(4, venda.getCodigo());
+            pstmt.setInt(2, venda.getCod_cliente());
+            pstmt.setInt(3, venda.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -110,7 +108,6 @@ public class VendaDAO {
     public static void main(String[] args) {
         Venda venda = new Venda(); //alterar
         venda.setValorTotal(850.00);
-        venda.setDatahora();
         venda.setCod_cliente(1);
                      
         VendaDAO dao = new VendaDAO(); //alterar
