@@ -40,7 +40,7 @@ public class PaisView extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        itfSigla = new javax.swing.JTextField();
+        jtfSigla = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -142,7 +142,7 @@ public class PaisView extends javax.swing.JDialog {
                                         .addGap(18, 18, 18)
                                         .addComponent(jbtExcluir)
                                         .addGap(0, 36, Short.MAX_VALUE))
-                                    .addComponent(itfSigla)
+                                    .addComponent(jtfSigla)
                                     .addComponent(jtfNome))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -161,7 +161,7 @@ public class PaisView extends javax.swing.JDialog {
                     .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itfSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfSigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -224,7 +224,6 @@ public class PaisView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField itfSigla;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
@@ -236,6 +235,7 @@ public class PaisView extends javax.swing.JDialog {
     public javax.swing.JButton jbtLimpar;
     public javax.swing.JTextField jtfCodigo;
     public javax.swing.JTextField jtfNome;
+    public javax.swing.JTextField jtfSigla;
     public javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

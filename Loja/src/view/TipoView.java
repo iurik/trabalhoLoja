@@ -32,7 +32,7 @@ public class TipoView extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
-        jtffDescricao = new javax.swing.JTextField();
+        jtfDescricao = new javax.swing.JTextField();
         jbtLimpar = new javax.swing.JButton();
         jbtAdicionar = new javax.swing.JButton();
         jbtAlterar = new javax.swing.JButton();
@@ -122,7 +122,7 @@ public class TipoView extends javax.swing.JDialog {
                                 .addComponent(jbtAlterar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jbtExcluir))
-                            .addComponent(jtffDescricao)
+                            .addComponent(jtfDescricao)
                             .addComponent(jtfCodigo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
@@ -139,7 +139,7 @@ public class TipoView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jtffDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtLimpar)
@@ -206,7 +206,7 @@ public class TipoView extends javax.swing.JDialog {
     public javax.swing.JButton jbtExcluir;
     public javax.swing.JButton jbtLimpar;
     public javax.swing.JTextField jtfCodigo;
-    public javax.swing.JTextField jtffDescricao;
+    public javax.swing.JTextField jtfDescricao;
     public javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
