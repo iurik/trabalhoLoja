@@ -22,12 +22,13 @@ public class PaisDAO {
 
     public boolean adicionar(Pais pais) { //alterar a classe do parâmetro
         try {
-            String sql = "INSERT INTO pais (nome) VALUES (?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
+            String sql = "INSERT INTO pais (nome, sigla) VALUES (?, ?)"; //alterar a tabela, os atributos e o número de interrogações, conforme o número de atributos
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
             //definindo as interrogações (uma linha para cada ? do SQL)
             pstmt.setString(1, pais.getNome()); // alterar o primeiro parâmetro indica a interrogação, começando em 1
-
+            pstmt.setString(2, pais.getSigla());
+            
             pstmt.executeUpdate(); //executando
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -39,14 +40,15 @@ public class PaisDAO {
     public boolean alterar(Pais pais) {
         try {
             String sql = " UPDATE pais "
-                    + "    SET nome = ? "
+                    + "    SET nome = ?, sigla = ? "
                     + "  WHERE codigo = ? "; //alterar tabela, atributos e chave primária
 
             PreparedStatement pstmt = Conexao.getConexao().prepareStatement(sql);
 
             //definindo as interrogações (uma linha para cada ? do SQL)
             pstmt.setString(1, pais.getNome());
-            pstmt.setInt(2, pais.getCodigo());
+            pstmt.setString(2, pais.getSigla());
+            pstmt.setInt(3, pais.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -74,7 +76,7 @@ public class PaisDAO {
     }
 
     public List<Pais> selecionar() {
-        String sql = "SELECT codigo, nome FROM pessoa ORDER BY nome"; //alterar tabela e atributos
+        String sql = "SELECT codigo, nome, sigla FROM pais ORDER BY nome"; //alterar tabela e atributos
 
         try {
             Statement stmt = Conexao.getConexao().createStatement();
@@ -87,6 +89,7 @@ public class PaisDAO {
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
                 pais.setCodigo(rs.getInt("codigo")); //alterar
                 pais.setNome(rs.getString("nome"));  //alterar
+                pais.setSigla(rs.getString("sigla"));
 
                 lista.add(pais);
             }
@@ -103,6 +106,7 @@ public class PaisDAO {
     public static void main(String[] args) {
         Pais pais = new Pais(); //alterar
         pais.setNome("Brasil"); //alterar
+        pais.setSigla("BR");
 
         PaisDAO dao = new PaisDAO(); //alterar
         dao.adicionar(pais); //alterar

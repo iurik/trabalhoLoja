@@ -9,6 +9,6 @@ package controller;
  *
  * @author Iuri
  */
-public class PessoaController {
+public class ParcelaController {
     
 }
