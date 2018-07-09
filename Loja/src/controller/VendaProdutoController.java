@@ -5,13 +5,13 @@
  */
 package controller;
 
-import dao.GrupoDAO;
+import dao.VendaProdutoDAO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.Grupo;
-import view.GrupoView;
+import model.VendaProduto;
+import view.VendaProdutoView;
 
 /**
  *
@@ -24,15 +24,17 @@ public class VendaProdutoController {
         try {
             DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
-            GrupoDAO dao = new GrupoDAO(); //alterar
-            List<Grupo> objetos = dao.selecionar(); //alterar
-            Object colunas[] = new Object[2]; //alterar o índice de acordo com o número de campos exibidos 
+            VendaProdutoDAO dao = new VendaProdutoDAO(); //alterar
+            List<VendaProduto> objetos = dao.selecionar(); //alterar
+            Object colunas[] = new Object[4]; //alterar o índice de acordo com o número de campos exibidos 
 
             if (!objetos.isEmpty()) {
-                for (Grupo objeto : objetos) {//alterar a classe
+                for (VendaProduto objeto : objetos) {//alterar a classe
                     //alterar definir o que vai em cada linha - 1 linha para cada atributo exibido na tabela
-                    colunas[0] = objeto.getCodigo();  //alterar
-                    colunas[1] = objeto.getNome(); //alterar
+                    colunas[0] = objeto.getQuantidade();  //alterar
+                    colunas[1] = objeto.getValorUnitario(); //alterar
+                    colunas[2] = objeto.getCod_produto();
+                    colunas[3] = objeto.getCod_venda();
                     
                     model.addRow(colunas);
                 }
@@ -51,16 +53,19 @@ public class VendaProdutoController {
         }
     }
 
-    public static void atualizaCampos(GrupoView tela) {
+    public static void atualizaCampos(VendaProdutoView tela) {
         int linhaSelecionada = tela.tabela.getSelectedRow();
 
         //alterar obtendo os valores da tabela
-        String codigo = tela.tabela.getValueAt(linhaSelecionada, 0).toString(); //está na coluna 0
-        String nome = tela.tabela.getValueAt(linhaSelecionada, 1).toString(); //está na coluna 1
-
+        String quantidade = tela.tabela.getValueAt(linhaSelecionada, 0).toString(); //está na coluna 0
+        String valorunitario = tela.tabela.getValueAt(linhaSelecionada, 1).toString(); //está na coluna 1
+        String cod_produto = tela.tabela.getValueAt(linhaSelecionada, 2).toString();
+        String cod_venda = tela.tabela.getValueAt(linhaSelecionada, 3).toString();
         //alterar setando os valores dos campos
-        tela.jtfCodigo.setText(codigo);
-        tela.jtfNome.setText(nome);
+        tela.jtfQuantidade.setText(quantidade);
+        tela.jtfValorUnitario.setText(valorunitario);
+        tela.jtfCodProduto.setText(cod_produto);
+        tela.jtfCodVenda.setText(cod_venda);
 
         // habilita/desabilita botões
         tela.jbtAdicionar.setEnabled(false);
@@ -68,22 +73,29 @@ public class VendaProdutoController {
         tela.jbtExcluir.setEnabled(true);
     }
 
-    public static void adicionar(GrupoView tela) {
+    public static void adicionar(VendaProdutoView tela) {
         //verificando se os campos estão preenchidos
         if (!verificarCampos(tela)) {
             return; //algum campo não está preenchido corretamente
         }
 
         //alterar:: obtendo os valores preenchidos
-        String nome = tela.jtfNome.getText().trim();
+        Integer quantidade = Integer.parseInt(tela.jtfQuantidade.getText().trim());
+        Double valorunitario = Double.parseDouble(tela.jtfValorUnitario.getText().trim());
+        Integer cod_produto = Integer.parseInt(tela.jtfCodProduto.getText().trim());
+        Integer cod_venda = Integer.parseInt(tela.jtfCodVenda.getText().trim());
+
 
         //alterar:: criando objeto
-        Grupo grupo = new Grupo();
-        grupo.setNome(nome);
+        VendaProduto vendaproduto = new VendaProduto();
+        vendaproduto.setQuantidade(quantidade);
+        vendaproduto.setValorUnitario(valorunitario);
+        vendaproduto.setCod_produto(cod_produto);
+        vendaproduto.setCod_venda(cod_venda);
 
         //alterar:: adicionando o objeto no banco de dados
-        GrupoDAO dao = new GrupoDAO();
-        boolean resultado = dao.adicionar(grupo);
+        VendaProdutoDAO dao = new VendaProdutoDAO();
+        boolean resultado = dao.adicionar(vendaproduto);
         if (resultado) {
             atualizaTabela(tela.tabela);
             //limpa os campos e habilita/desabilita os botões
@@ -95,23 +107,27 @@ public class VendaProdutoController {
 
     }
 
-    public static void alterar(GrupoView tela) {
+    public static void alterar(VendaProdutoView tela) {
         //verificando se os campos estão preenchidos
         if (!verificarCampos(tela)) {
             return; //algum campo não está preenchido corretamente
         }
         //alterar:: obtendo os valores preenchidos
-        Integer codigo = Integer.parseInt(tela.jtfCodigo.getText().trim());
-        String nome = tela.jtfNome.getText().trim();
+        Integer quantidade = Integer.parseInt(tela.jtfQuantidade.getText().trim());
+        Double valorunitario = Double.parseDouble(tela.jtfValorUnitario.getText().trim());
+        Integer cod_produto = Integer.parseInt(tela.jtfCodProduto.getText().trim());
+        Integer cod_venda = Integer.parseInt(tela.jtfCodVenda.getText().trim());
 
         //alterar:: criando objeto
-        Grupo grupo = new Grupo();
-        grupo.setCodigo(codigo); //na alteração tem que setar o código
-        grupo.setNome(nome);
+        VendaProduto vendaproduto = new VendaProduto();
+        vendaproduto.setQuantidade(quantidade); //na alteração tem que setar o código
+        vendaproduto.setValorUnitario(valorunitario);
+        vendaproduto.setCod_produto(cod_produto);
+        vendaproduto.setCod_venda(cod_venda);
 
         //alterar:: alterando o objeto no banco de dados
-        GrupoDAO dao = new GrupoDAO(); //alterar
-        boolean resultado = dao.alterar(grupo); //alterar
+        VendaProdutoDAO dao = new VendaProdutoDAO(); //alterar
+        boolean resultado = dao.alterar(vendaproduto); //alterar
         
         if (resultado) {
             atualizaTabela(tela.tabela);
@@ -123,7 +139,7 @@ public class VendaProdutoController {
         }
     }
     
-    public static void excluir(GrupoView tela) {
+    public static void excluir(VendaProdutoView tela) {
         //verificando se usuário tem certeza
         int result = JOptionPane.showConfirmDialog(tela, "Tem certeza que deseja excluir?", "Exclusão", JOptionPane.YES_NO_OPTION);
         if (result!=JOptionPane.YES_OPTION) {
@@ -131,15 +147,16 @@ public class VendaProdutoController {
         }
         
         //alterar:: obtendo a chave primária
-        Integer codigo = Integer.parseInt(tela.jtfCodigo.getText().trim());
-
+        Integer cod_produto = Integer.parseInt(tela.jtfCodProduto.getText().trim());
+        Integer cod_venda = Integer.parseInt(tela.jtfCodVenda.getText().trim());
+        
         //alterar:: criando objeto
-        Grupo grupo = new Grupo();
-        grupo.setCodigo(codigo); //na exclusão só precisa setar a chave primária
-
+        VendaProduto vendaproduto = new VendaProduto();
+        vendaproduto.setCod_produto(cod_produto); //na exclusão só precisa setar a chave primária
+        vendaproduto.setCod_venda(cod_venda);
         //alterar:: excluindo o objeto no banco de dados
-        GrupoDAO dao = new GrupoDAO(); //alterar
-        boolean resultado = dao.excluir(grupo); //alterar
+        VendaProdutoDAO dao = new VendaProdutoDAO(); //alterar
+        boolean resultado = dao.excluir(vendaproduto); //alterar
         
         if (resultado) {
             atualizaTabela(tela.tabela);
@@ -158,10 +175,22 @@ public class VendaProdutoController {
      * @return true se todos os campos estão preenchidos corretamente, false se
      * algum campo não está preenchido corretamente
      */
-    public static boolean verificarCampos(GrupoView tela) {
+    public static boolean verificarCampos(VendaProdutoView tela) {
         //alterar:: conforme os campos obrigatórios
-        if (tela.jtfNome.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(tela, "Preencha o campo nome!");
+        if (tela.jtfQuantidade.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(tela, "Preencha o campo quantidade!");
+            return false;
+        }
+        if (tela.jtfValorUnitario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(tela, "Preencha o campo valor unitario!");
+            return false;
+        }
+        if (tela.jtfCodProduto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(tela, "Preencha o campo código produto!");
+            return false;
+        }
+        if (tela.jtfCodVenda.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(tela, "Preencha o campo código venda!");
             return false;
         }
         return true;
@@ -172,11 +201,13 @@ public class VendaProdutoController {
      *
      * @param tela
      */
-    public static void limparCampos(GrupoView tela) {
+    public static void limparCampos(VendaProdutoView tela) {
         //alterar:: limpando os campos
-        tela.jtfCodigo.setText("");
-        tela.jtfNome.setText("");
-
+        tela.jtfQuantidade.setText("");
+        tela.jtfValorUnitario.setText("");
+        tela.jtfCodProduto.setText("");
+        tela.jtfCodVenda.setText("");
+        
         //habilitando/desabilitando os botões
         tela.jbtAdicionar.setEnabled(true);
         tela.jbtAlterar.setEnabled(false);

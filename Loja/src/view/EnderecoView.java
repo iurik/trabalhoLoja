@@ -269,22 +269,22 @@ public class EnderecoView extends javax.swing.JDialog {
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JLabel jLabel7;
+    public javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel9;
+    public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JButton jbtAdicionar;
     public javax.swing.JButton jbtAlterar;
     public javax.swing.JButton jbtExcluir;
     public javax.swing.JButton jbtLimpar;
-    private javax.swing.JTextField jtfBairro;
-    private javax.swing.JTextField jtfCep;
-    private javax.swing.JTextField jtfCodCidade;
-    private javax.swing.JTextField jtfCodPessoa;
-    private javax.swing.JTextField jtfCodigo;
-    private javax.swing.JTextField jtfComplemento;
-    private javax.swing.JTextField jtfLogradouro;
-    private javax.swing.JTextField jtfNumero;
+    public javax.swing.JTextField jtfBairro;
+    public javax.swing.JTextField jtfCep;
+    public javax.swing.JTextField jtfCodCidade;
+    public javax.swing.JTextField jtfCodPessoa;
+    public javax.swing.JTextField jtfCodigo;
+    public javax.swing.JTextField jtfComplemento;
+    public javax.swing.JTextField jtfLogradouro;
+    public javax.swing.JTextField jtfNumero;
     public javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
