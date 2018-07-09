@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,8 +52,9 @@ public class Conexao {
     public static void main(String[] args) {
         try {
             getConexao();
-            System.out.println("Feito!");
+            JOptionPane.showMessageDialog(null, "Feito!");
         } catch (SQLException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Erro!");
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
