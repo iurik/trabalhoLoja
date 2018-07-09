@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.CidadeController;
+
 /**
  *
  * @author Iuri
@@ -57,11 +59,21 @@ public class CidadeView extends javax.swing.JDialog {
         jLabel1.setText("Cidade");
 
         jbtLimpar.setText("Limpar");
+        jbtLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLimparActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Código:");
 
         jbtAdicionar.setText("Adicionar");
+        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAdicionarActionPerformed(evt);
+            }
+        });
 
         tabela.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
@@ -101,11 +113,26 @@ public class CidadeView extends javax.swing.JDialog {
                 "Código", "Nome", "CodEstado"
             }
         ));
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         jbtAlterar.setText("Alterar");
+        jbtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAlterarActionPerformed(evt);
+            }
+        });
 
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nome:");
@@ -178,6 +205,31 @@ public class CidadeView extends javax.swing.JDialog {
     private void jtfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfNomeActionPerformed
+
+    private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
+        // TODO add your handling code here:
+        CidadeController.limparCampos(this);
+    }//GEN-LAST:event_jbtLimparActionPerformed
+
+    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
+        // TODO add your handling code here:
+        CidadeController.adicionar(this);
+    }//GEN-LAST:event_jbtAdicionarActionPerformed
+
+    private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
+        // TODO add your handling code here:
+        CidadeController.alterar(this);
+    }//GEN-LAST:event_jbtAlterarActionPerformed
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        // TODO add your handling code here:
+        CidadeController.excluir(this);
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        // TODO add your handling code here:
+        CidadeController.atualizaCampos(this);
+    }//GEN-LAST:event_tabelaMouseClicked
 
     /**
      * @param args the command line arguments

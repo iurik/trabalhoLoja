@@ -33,7 +33,7 @@ public class PaisController {
                     //alterar definir o que vai em cada linha - 1 linha para cada atributo exibido na tabela
                     colunas[0] = objeto.getCodigo();  //alterar
                     colunas[1] = objeto.getNome(); //alterar
-                    colunas[1] = objeto.getSigla();
+                    colunas[2] = objeto.getSigla();
                     
                     model.addRow(colunas);
                 }

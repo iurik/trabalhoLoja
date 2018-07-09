@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.ClienteController;
+
 /**
  *
  * @author Iuri
@@ -52,12 +54,32 @@ public class ClienteView extends javax.swing.JDialog {
         jLabel3.setText("CPF:");
 
         jbtLimpar.setText("Limpar");
+        jbtLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLimparActionPerformed(evt);
+            }
+        });
 
         jbtAdicionar.setText("Adicionar");
+        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAdicionarActionPerformed(evt);
+            }
+        });
 
         jbtAlterar.setText("Alterar");
+        jbtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAlterarActionPerformed(evt);
+            }
+        });
 
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,6 +118,11 @@ public class ClienteView extends javax.swing.JDialog {
                 "Código Pessoa", "CPF"
             }
         ));
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,6 +183,31 @@ public class ClienteView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
+        // TODO add your handling code here:
+        ClienteController.limparCampos(this);
+    }//GEN-LAST:event_jbtLimparActionPerformed
+
+    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
+        // TODO add your handling code here:
+        ClienteController.adicionar(this);
+    }//GEN-LAST:event_jbtAdicionarActionPerformed
+
+    private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
+        // TODO add your handling code here:
+        ClienteController.alterar(this);
+    }//GEN-LAST:event_jbtAlterarActionPerformed
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        // TODO add your handling code here:
+        ClienteController.excluir(this);
+    }//GEN-LAST:event_jbtExcluirActionPerformed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        // TODO add your handling code here:
+        ClienteController.atualizaCampos(this);
+    }//GEN-LAST:event_tabelaMouseClicked
 
     /**
      * @param args the command line arguments

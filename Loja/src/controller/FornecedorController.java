@@ -17,7 +17,7 @@ import view.FornecedorView;
  *
  * @author edimar
  */
-public class ForncedorController {
+public class FornecedorController {
 
     public static void atualizaTabela(JTable tabela) {
         removeLinhasTabela(tabela);

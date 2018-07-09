@@ -5,6 +5,8 @@
  */
 package view;
 
+import controller.ProdutoController;
+
 /**
  *
  * @author Iuri
@@ -59,12 +61,32 @@ public class ProdutoView extends javax.swing.JDialog {
         jLabel3.setText("Prateleira:");
 
         jbtLimpar.setText("Limpar");
+        jbtLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLimparActionPerformed(evt);
+            }
+        });
 
         jbtAdicionar.setText("Adicionar");
+        jbtAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAdicionarActionPerformed(evt);
+            }
+        });
 
         jbtAlterar.setText("Alterar");
+        jbtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAlterarActionPerformed(evt);
+            }
+        });
 
         jbtExcluir.setText("Excluir");
+        jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtExcluirActionPerformed(evt);
+            }
+        });
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,6 +125,11 @@ public class ProdutoView extends javax.swing.JDialog {
                 "Código", "Descrição", "Prateleira", "Valor Unitário", "Quantidade Estoque", "Custo", "NCM", "Código Tipo", "Código Fornecedor"
             }
         ));
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         Produto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -227,6 +254,31 @@ public class ProdutoView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        // TODO add your handling code here:
+        ProdutoController.atualizaCampos(this);
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void jbtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLimparActionPerformed
+        // TODO add your handling code here:
+        ProdutoController.limparCampos(this);
+    }//GEN-LAST:event_jbtLimparActionPerformed
+
+    private void jbtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAdicionarActionPerformed
+        // TODO add your handling code here:
+        ProdutoController.adicionar(this);
+    }//GEN-LAST:event_jbtAdicionarActionPerformed
+
+    private void jbtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAlterarActionPerformed
+        // TODO add your handling code here:
+        ProdutoController.alterar(this);
+    }//GEN-LAST:event_jbtAlterarActionPerformed
+
+    private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed
+        // TODO add your handling code here:
+        ProdutoController.excluir(this);
+    }//GEN-LAST:event_jbtExcluirActionPerformed
 
     /**
      * @param args the command line arguments
