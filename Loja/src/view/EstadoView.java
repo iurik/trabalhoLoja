@@ -6,6 +6,7 @@
 package view;
 
 import controller.EstadoController;
+import model.Pais;
 
 /**
  *
@@ -19,6 +20,7 @@ public class EstadoView extends javax.swing.JDialog {
     public EstadoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        EstadoController.AtualizaComboBox(jcbCodPais);
         EstadoController.atualizaTabela(tabela);
     }
 
@@ -90,7 +92,7 @@ public class EstadoView extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Sigla", "Pais"
+                "Código", "Nome", "Sigla", "CodPais"
             }
         ));
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,7 +145,6 @@ public class EstadoView extends javax.swing.JDialog {
             }
         });
 
-        jcbCodPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jcbCodPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbCodPaisActionPerformed(evt);
@@ -316,7 +317,7 @@ public class EstadoView extends javax.swing.JDialog {
     public javax.swing.JButton jbtAlterar;
     public javax.swing.JButton jbtExcluir;
     public javax.swing.JButton jbtLimpar;
-    public javax.swing.JComboBox<String> jcbCodPais;
+    public javax.swing.JComboBox<Pais> jcbCodPais;
     public javax.swing.JTextField jtfCodigo;
     public javax.swing.JTextField jtfNome;
     public javax.swing.JTextField jtfSigla;

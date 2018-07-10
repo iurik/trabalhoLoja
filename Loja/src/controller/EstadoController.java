@@ -6,7 +6,9 @@
 package controller;
 
 import dao.EstadoDAO;
+import dao.PaisDAO;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +22,17 @@ import view.EstadoView;
  */
 public class EstadoController {
 
+    public static void AtualizaComboBox(JComboBox cbPais)
+    {
+        cbPais.removeAllItems();
+        PaisDAO dao = new PaisDAO();
+        for(Pais pais: dao.selecionar())
+        {
+            cbPais.addItem(pais);
+            
+        }
+    }
+        
     public static void atualizaTabela(JTable tabela) {
         removeLinhasTabela(tabela);
         try {
@@ -60,7 +73,7 @@ public class EstadoController {
         String codigo = tela.tabela.getValueAt(linhaSelecionada, 0).toString(); //está na coluna 0
         String nome = tela.tabela.getValueAt(linhaSelecionada, 1).toString(); //está na coluna 1
         String sigla = tela.tabela.getValueAt(linhaSelecionada, 2).toString();
-        String cod_pais  = tela.tabela.getValueAt(linhaSelecionada, 3).toString();
+        int cod_pais  = Integer.parseInt(tela.tabela.getValueAt(linhaSelecionada, 3).toString());
 
         //alterar setando os valores dos campos
         tela.jtfCodigo.setText(codigo);

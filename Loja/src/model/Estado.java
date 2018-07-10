@@ -47,5 +47,7 @@ public class Estado {
         this.cod_pais = cod_pais;
     }
 
+
+
     
 }
