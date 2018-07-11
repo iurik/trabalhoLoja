@@ -19,6 +19,7 @@ public class EstadoView extends javax.swing.JDialog {
     public EstadoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        EstadoController.atualizaTabela(tabela);
     }
 
     /**
@@ -40,11 +41,11 @@ public class EstadoView extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jtfSigla = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jtfCodPais = new javax.swing.JTextField();
         jbtLimpar = new javax.swing.JButton();
         jbtAdicionar = new javax.swing.JButton();
         jbtAlterar = new javax.swing.JButton();
         jbtExcluir = new javax.swing.JButton();
+        jcbCodPais = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -89,7 +90,7 @@ public class EstadoView extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Sigla", "CodPais"
+                "Código", "Nome", "Sigla", "Pais"
             }
         ));
         tabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,6 +143,13 @@ public class EstadoView extends javax.swing.JDialog {
             }
         });
 
+        jcbCodPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCodPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbCodPaisActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,7 +183,7 @@ public class EstadoView extends javax.swing.JDialog {
                                         .addGap(56, 56, 56))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jtfCodPais))))))
+                                        .addComponent(jcbCodPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,8 +214,8 @@ public class EstadoView extends javax.swing.JDialog {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfCodPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jcbCodPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtLimpar)
@@ -250,6 +258,10 @@ public class EstadoView extends javax.swing.JDialog {
         // TODO add your handling code here:
         EstadoController.atualizaCampos(this);
     }//GEN-LAST:event_tabelaMouseClicked
+
+    private void jcbCodPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCodPaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCodPaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,7 +316,7 @@ public class EstadoView extends javax.swing.JDialog {
     public javax.swing.JButton jbtAlterar;
     public javax.swing.JButton jbtExcluir;
     public javax.swing.JButton jbtLimpar;
-    public javax.swing.JTextField jtfCodPais;
+    public javax.swing.JComboBox<String> jcbCodPais;
     public javax.swing.JTextField jtfCodigo;
     public javax.swing.JTextField jtfNome;
     public javax.swing.JTextField jtfSigla;

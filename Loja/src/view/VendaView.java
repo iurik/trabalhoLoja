@@ -19,6 +19,7 @@ public class VendaView extends javax.swing.JDialog {
     public VendaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        VendaController.atualizaTabela(tabela);
     }
 
     /**

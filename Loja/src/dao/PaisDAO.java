@@ -105,9 +105,7 @@ public class PaisDAO {
     //método só para testar
     public static void main(String[] args) {
         Pais pais = new Pais(); //alterar
-        pais.setNome("Brasil"); //alterar
-        pais.setSigla("BR");
-
+                
         PaisDAO dao = new PaisDAO(); //alterar
         dao.adicionar(pais); //alterar
     }

@@ -19,6 +19,7 @@ public class CidadeView extends javax.swing.JDialog {
     public CidadeView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        CidadeController.atualizaTabela(tabela);
     }
 
     /**

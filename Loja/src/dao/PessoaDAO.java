@@ -46,8 +46,8 @@ public class PessoaDAO {
 
             //definindo as interrogações (uma linha para cada ? do SQL)
             pstmt.setString(1, pessoa.getNome());
-            pstmt.setString(1, pessoa.getTelefone());
-            pstmt.setInt(2, pessoa.getCodigo());
+            pstmt.setString(2, pessoa.getTelefone());
+            pstmt.setInt(3, pessoa.getCodigo());
 
             pstmt.executeUpdate(); //executando
             return true;
@@ -88,7 +88,7 @@ public class PessoaDAO {
                 //setar os atributos do objeto. Cuidar o tipo dos atributos
                 pessoa.setCodigo(rs.getInt("codigo")); //alterar
                 pessoa.setNome(rs.getString("nome"));  //alterar
-                pessoa.setNome(rs.getString("telefone"));
+                pessoa.setTelefone(rs.getString("telefone"));
 
                 lista.add(pessoa);
             }
@@ -104,8 +104,6 @@ public class PessoaDAO {
     //método só para testar
     public static void main(String[] args) {
         Pessoa pessoa = new Pessoa(); //alterar
-        pessoa.setNome("Iuri"); //alterar
-        pessoa.setTelefone("54991450891");
 
         PessoaDAO dao = new PessoaDAO(); //alterar
         dao.adicionar(pessoa); //alterar

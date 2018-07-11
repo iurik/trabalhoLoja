@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Estado;
+import model.Pais;
 import view.EstadoView;
 
 /**
@@ -65,7 +66,7 @@ public class EstadoController {
         tela.jtfCodigo.setText(codigo);
         tela.jtfNome.setText(nome);
         tela.jtfSigla.setText(sigla);
-        tela.jtfCodPais.setText(cod_pais);
+        tela.jcbCodPais.setSelectedItem(cod_pais);
 
         // habilita/desabilita botões
         tela.jbtAdicionar.setEnabled(false);
@@ -82,7 +83,7 @@ public class EstadoController {
         //alterar:: obtendo os valores preenchidos
         String nome = tela.jtfNome.getText().trim();
         String sigla = tela.jtfSigla.getText().trim();
-        Integer cod_pais = Integer.parseInt(tela.jtfCodPais.getText().trim()); 
+        Integer cod_pais = ((Pais)tela.jcbCodPais.getSelectedItem()).getCodigo();
 
         //alterar:: criando objeto
         Estado estado = new Estado();
@@ -113,7 +114,7 @@ public class EstadoController {
         Integer codigo = Integer.parseInt(tela.jtfCodigo.getText().trim());
         String nome = tela.jtfNome.getText().trim();
         String sigla = tela.jtfSigla.getText().trim();
-        Integer cod_pais = Integer.parseInt(tela.jtfCodPais.getText().trim());
+        Integer cod_pais = ((Pais)tela.jcbCodPais.getSelectedItem()).getCodigo();
 
         //alterar:: criando objeto
         Estado estado = new Estado();
@@ -181,10 +182,10 @@ public class EstadoController {
             JOptionPane.showMessageDialog(tela, "Preencha o campo sigla!");
             return false;
         }
-        if (tela.jtfCodPais.getText().isEmpty()) {
+        /*if (tela.jcbCodPais.getSelectedItem()) {
             JOptionPane.showMessageDialog(tela, "Preencha o campo código país!");
             return false;
-        }
+        }*/
         return true;
     }
 
@@ -198,7 +199,7 @@ public class EstadoController {
         tela.jtfCodigo.setText("");
         tela.jtfNome.setText("");
         tela.jtfSigla.setText("");
-        tela.jtfCodPais.setText("");
+        tela.jcbCodPais.setSelectedItem("");
 
         //habilitando/desabilitando os botões
         tela.jbtAdicionar.setEnabled(true);

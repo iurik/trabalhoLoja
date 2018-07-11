@@ -105,9 +105,7 @@ public class CidadeDAO {
     //método só para testar
     public static void main(String[] args) {
         Cidade cidade = new Cidade(); //alterar
-        cidade.setNome("Selbach"); //alterar
-        cidade.setCod_estado(1);
-        
+                
         CidadeDAO dao = new CidadeDAO(); //alterar
         dao.adicionar(cidade); //alterar
     }

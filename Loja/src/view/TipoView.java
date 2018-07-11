@@ -19,6 +19,7 @@ public class TipoView extends javax.swing.JDialog {
     public TipoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        TipoController.atualizaTabela(tabela);
     }
 
     /**

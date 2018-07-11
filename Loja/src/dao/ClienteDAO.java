@@ -103,9 +103,7 @@ public class ClienteDAO {
     //método só para testar
     public static void main(String[] args) {
         Cliente cliente = new Cliente(); //alterar
-        cliente.setCod_pessoa(1); //alterar
-        cliente.setCpf("03424827002");
-        
+                
         ClienteDAO dao = new ClienteDAO(); //alterar
         dao.adicionar(cliente); //alterar
     }

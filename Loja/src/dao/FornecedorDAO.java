@@ -103,9 +103,7 @@ public class FornecedorDAO {
     //método só para testar
     public static void main(String[] args) {
         Fornecedor fornecedor = new Fornecedor(); //alterar
-        fornecedor.setCnpj("15965475398126"); //alterar
-        fornecedor.setCod_pessoa(1);
-        
+                
         FornecedorDAO dao = new FornecedorDAO(); //alterar
         dao.adicionar(fornecedor); //alterar
     }

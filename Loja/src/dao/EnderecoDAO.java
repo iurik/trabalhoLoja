@@ -120,14 +120,7 @@ public class EnderecoDAO {
     //método só para testar
     public static void main(String[] args) {
         Endereco endereco = new Endereco(); //alterar
-        endereco.setNumero(null); //alterar
-        endereco.setCep("99450000");
-        endereco.setBairro("Linha Floresta");
-        endereco.setComplemento(null);
-        endereco.setLogradouro(null);
-        endereco.setCod_pessoa(1);
-        endereco.setCod_cid(1);
-        
+                
         EnderecoDAO dao = new EnderecoDAO(); //alterar
         dao.adicionar(endereco); //alterar
     }

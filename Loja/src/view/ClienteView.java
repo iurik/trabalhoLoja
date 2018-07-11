@@ -19,6 +19,7 @@ public class ClienteView extends javax.swing.JDialog {
     public ClienteView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ClienteController.atualizaTabela(tabela);
     }
 
     /**

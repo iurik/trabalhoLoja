@@ -19,6 +19,7 @@ public class EnderecoView extends javax.swing.JDialog {
     public EnderecoView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        EnderecoController.atualizaTabela(tabela);
     }
 
     /**

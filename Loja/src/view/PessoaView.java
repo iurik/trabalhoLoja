@@ -19,6 +19,7 @@ public class PessoaView extends javax.swing.JDialog {
     public PessoaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        PessoaController.atualizaTabela(tabela);
     }
 
     /**

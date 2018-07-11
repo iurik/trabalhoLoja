@@ -19,6 +19,7 @@ public class PaisView extends javax.swing.JDialog {
     public PaisView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        PaisController.atualizaTabela(tabela);
     }
 
     /**

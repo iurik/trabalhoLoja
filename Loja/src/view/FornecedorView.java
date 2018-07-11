@@ -19,6 +19,7 @@ public class FornecedorView extends javax.swing.JDialog {
     public FornecedorView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        FornecedorController.atualizaTabela(tabela);
     }
 
     /**

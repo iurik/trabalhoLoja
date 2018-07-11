@@ -102,8 +102,7 @@ public class TipoDAO {
     //método só para testar
     public static void main(String[] args) {
         Tipo tipo = new Tipo(); //alterar
-        tipo.setDescricao("Calça"); //alterar
-
+        
         TipoDAO dao = new TipoDAO(); //alterar
         dao.adicionar(tipo); //alterar
     }

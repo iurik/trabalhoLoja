@@ -123,16 +123,7 @@ public class ProdutoDAO {
     //método só para testar
     public static void main(String[] args) {
         Produto produto = new Produto(); //alterar
-        produto.setPrateleira("preteleira 2"); //alterar
-        produto.setValorUnitario(69.00);
-        produto.setQuantidadeEstoque(9);
-        produto.setDescricao("Preto, G");
-        produto.setCusto(40.90);
-        produto.setNcm("95135764");
-        produto.setCod_tipo(1);
-        produto.setCod_fornecedor(1);
-        
-
+             
         ProdutoDAO dao = new ProdutoDAO(); //alterar
         dao.adicionar(produto); //alterar
     }

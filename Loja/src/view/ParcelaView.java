@@ -19,6 +19,7 @@ public class ParcelaView extends javax.swing.JDialog {
     public ParcelaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        ParcelaController.atualizaTabela(tabela);
     }
 
     /**

@@ -111,11 +111,7 @@ public class ParcelaDAO {
     //método só para testar
     public static void main(String[] args) {
         Parcela parcela = new Parcela(); //alterar
-        parcela.setValor(36.0); //alterar
-        parcela.setDataVencimento("30/12/2018");
-        parcela.setDataPagamento("24/12/2018");
-        parcela.setCod_venda(1);
-        
+                
         ParcelaDAO dao = new ParcelaDAO(); //alterar
         dao.adicionar(parcela); //alterar
     }

@@ -109,11 +109,7 @@ public class VendaProdutoDAO {
     //método só para testar
     public static void main(String[] args) {
         VendaProduto vendaproduto = new VendaProduto(); //alterar
-        vendaproduto.setQuantidade(3); //alterar
-        vendaproduto.setValorUnitario(359.50); 
-        vendaproduto.setCod_produto(1);
-        vendaproduto.setCod_venda(1); 
-
+        
         VendaProdutoDAO dao = new VendaProdutoDAO(); //alterar
         dao.adicionar(vendaproduto); //alterar
     }

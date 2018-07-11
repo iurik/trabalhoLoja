@@ -108,10 +108,7 @@ public class EstadoDAO {
     //método só para testar
     public static void main(String[] args) {
         Estado estado = new Estado(); //alterar
-        estado.setNome("Rio Grande do Sul"); //alterar
-        estado.setSigla("RS");
-        estado.setCod_pais(1);
-        
+                
         EstadoDAO dao = new EstadoDAO(); //alterar
         dao.adicionar(estado); //alterar
     }

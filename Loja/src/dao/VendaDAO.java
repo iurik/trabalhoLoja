@@ -107,9 +107,7 @@ public class VendaDAO {
     //método só para testar
     public static void main(String[] args) {
         Venda venda = new Venda(); //alterar
-        venda.setValorTotal(850.00);
-        venda.setCod_cliente(1);
-                     
+                             
         VendaDAO dao = new VendaDAO(); //alterar
         dao.adicionar(venda); //alterar
     }
